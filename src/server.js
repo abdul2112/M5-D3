@@ -1,10 +1,14 @@
 import express from 'express';
-
 import listEndpoints from 'express-list-endpoints';
-
 import cors from 'cors';
-
 import authorsRouter from './authors/index.js';
+import blogsRouter from './blogs/index.js';
+import {
+  badRequestErrorHandler,
+  notFoundErrorHandler,
+  forbiddenErrorHandler,
+  catchAllErrorHandler,
+} from './errorHandlers.js';
 
 const server = express();
 
@@ -16,7 +20,18 @@ server.use(express.json());
 
 server.use('/authors', authorsRouter);
 
-// console.table(listEndpoints(server));
+server.use('/blogs', blogsRouter);
+
+// ******** ERROR MIDDLEWARES ************ //
+
+server.use(badRequestErrorHandler);
+server.use(notFoundErrorHandler);
+server.use(forbiddenErrorHandler);
+server.use(catchAllErrorHandler);
+
+// ******** ERROR MIDDLEWARES ************ //
+
+console.table(listEndpoints(server));
 
 server.listen(port, () => {
   console.log('Server is running on port:', port);
