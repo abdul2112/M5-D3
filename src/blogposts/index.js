@@ -12,3 +12,10 @@ import uniqid from 'uniqid';
 4. UPDATE → PUT http://localhost:3001/blogposts/:id (+ body)
 5. DELETE → DELETE http://localhost:3001/blogposts/:id
 */
+
+authorsRouter.post('/', async (req, res, next) => {
+  try {
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
